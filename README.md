@@ -8,6 +8,8 @@
 
 ### Association
 - has_many :tweets
+- has_many :groups_users
+- has_many :groups, through: :groups_users
 
 ## groupsテーブル
 
@@ -16,10 +18,9 @@
 |name|string|null: false|
 
 ### Association
-- belongs_to :user
-- has_many :users, through: :groups_users
-- has_many :groups_users
 - has_many :tweets
+- has_many :groups_users
+- has_many :users, through: :groups_users
 
 ## groups_usersテーブル
 
@@ -31,7 +32,6 @@
 ### Association
 - belongs_to :group
 - belongs_to :user
-- has_many :users, through: :groups
 
 ## tweetsテーブル
 |Column|Type|Options|

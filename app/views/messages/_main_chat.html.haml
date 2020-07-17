@@ -2,39 +2,28 @@
   .chat-main__group-info
     .header-leftbox
       .current-group
-        test
+        = @group.name
       .member-list 
         Member:
         .member 
-          Aki
-    = link_to "＃" "Edit"
+          - @group.users.each do |user|
+            = user.name
+    = link_to edit_group_path(@group.id), class: 'edit__btn' do
+      Edit
+
 
   .chat-main__message-list
-    .member-name1
-      Aki
-      .date1
-        2020/07/15(Wed)
-        .time1
-          11:00:00
-    .message1
-      おはよう！
-    .member-name2
-      Aki
-      .date2
-        2020/07/15(Wed)
-        .time2
-          11:05:00
-    .message2
-      今日は夜から雨
+    = render @messages
+
 
   .chat-main__message-form
-    %form.new-message 
+    = form_with model: [@group, @message], html: {class: "Form"}, local: true do |f|
       .input-box
-        %input{type: "text", class: "input-box__text", placeholder: "type a message"}
-        %label{class: "input-box__image"}
-          = icon('fas', 'image')
-          %input{type: "file", class: "input-box__image__file"}
-      %input{type: "submit", class: "submit-btn", value: "Send"}
+        = f.text_field :content, class: 'input-box__text', placeholder: 'type a message'
+        = f.label :image, class: 'input-box__image' do
+          = icon('far', 'image')
+          = f.file_field :image, class: 'input-box__image__file'
+      = f.submit 'Send', class: 'submit-btn'
 
 
     
